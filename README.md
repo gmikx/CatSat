@@ -1,14 +1,11 @@
 # CatSat
-Hi!
+## Hi!
+### Welcome to the **CatSat team** (CanSat competition) repo for development - software for our CanSat, the ground station, as well as a program for processing the images collected during the flight.
 
-This is CatSat team (CanSat competition) repo for development - software for both our CanSat and ground station.
-
-Cats also can fly! :cat::stars:
+### Cats also can fly! :cat::stars:
 
 ---
+### We combined 2 datasets - one available on [Kaggle](https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification?resource=download) and the other is [EuroSAT](https://madm.dfki.de/files/sentinel/EuroSAT.zip). 
+### We had to resize and preprocess the images from Kaggle since their size is 128x128, not 64x64 (as with EuroSat). Our dataset is available [HERE](https://dl.dropboxusercontent.com/s/5cfea9pfxti8pv3/dataset.zip?dl=0).
 
-We are building on top of [artemisart's satellite images classificator](https://github.com/artemisart/EuroSAT-image-classification).
-
-We combined 2 datasets - one available on [Kaggle](https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification?resource=download) and the other one was [EuroSAT](https://madm.dfki.de/files/sentinel/EuroSAT.zip). We had to resize and preprocess images from Kaggle since their size was 128x128 not 64x64 (as was the case for EuroSat).
-
-Our program creates a map from gathered *almost* satelite images from our cansat. It slices the images to 64x64 sub-images and feeds them into artemisart's program. Then we use the output to color the output map.
+### We decided to use ***Convolutional Neural Networks***, to recognize the type of terrain from *almost*-satellite images, and thus create a map of the area over which our CanSat will fly. To achieve this goal, we used the Python language and Tensorflow libraries
