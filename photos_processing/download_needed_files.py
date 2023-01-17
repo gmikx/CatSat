@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+# Following script downloads dataset needed for CNN training and required python packages.
+
+###########################################
+###  Script by @gmikx (Mikołaj Giza)    ###
+###  CatSat Team in CanSat Competition  ###
+###########################################
+
+
 import pkg_resources
 import subprocess
 import sys
