@@ -9,3 +9,9 @@
 ### We had to resize and preprocess the images from Kaggle since their size is 128x128, not 64x64 (as with EuroSat). Our dataset is available [HERE](https://dl.dropboxusercontent.com/s/5cfea9pfxti8pv3/dataset.zip?dl=0).
 
 ### We decided to use ***Convolutional Neural Networks***, to recognize the type of terrain from *almost*-satellite images, and thus create a map of the area over which our CanSat will fly. To achieve this goal, we used the Python language and Tensorflow libraries
+
+
+---
+
+
+made by Mikołaj Giza
