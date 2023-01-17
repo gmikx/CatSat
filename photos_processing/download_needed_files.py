@@ -1,7 +1,8 @@
+#!/usr/bin/python3
+
 import pkg_resources
 import subprocess
 import sys
-import requests
 from zipfile import ZipFile
 import os
 
