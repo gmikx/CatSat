@@ -21,7 +21,7 @@ from keras.callbacks import EarlyStopping
 path_to_this_file = os.path.dirname(os.path.realpath(__file__))
 
 
-# Data Preprocessing
+## Data Preprocessing ##
 
 # Preprocessing Training Set Data
 train_datagen = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
@@ -37,12 +37,12 @@ test_set = test_datagen.flow_from_directory(f'{path_to_this_file}/dataset/test',
                                             batch_size=32,
                                             class_mode='categorical')
 
-# Store the Number of Classes Found and the Classes Themselves in Variables.
+# Store the Number of Classes Found and the Classes Themselves in Variables
 classes = training_set.class_indices
 no_of_classes = len(classes)
 
 
-# Building the C(onvolutional)N(eural)N(etwork)
+## Building the C(onvolutional)N(eural)N(etwork) ##
 
 # Initialise CNN
 cnn = Sequential()
@@ -51,7 +51,7 @@ cnn = Sequential()
 cnn.add(layers.Conv2D(filters=34, kernel_size=3, activation='relu',
         padding='same', input_shape=[64, 64, 3]))
 
-# Pooling
+# Pooling #
 cnn.add(layers.MaxPooling2D((2, 2)))
 
 # Add convolution layer #2
@@ -71,7 +71,7 @@ cnn.add(layers.Dense(units=200, activation='relu'))
 cnn.add(layers.Dense(units=no_of_classes, activation='softmax'))
 
 
-# Train the Model
+## Train the Model ##
 
 # Early Stop - stop the training if there's no more improvement in model performance.
 # This operation saves time and prevents overfitting
@@ -92,7 +92,15 @@ result = cnn.evaluate(test_set)
 print(f'Test loss: {result[0]}')
 print(f'Test accuracy: {result[1]}')
 
-# Save the Trained Model
+
+## Save the Trained Model##
+
 path_to_save = f'{path_to_this_file}/best_model'
+try:
+    # Erase Previously Trained Model
+    os.rmdir(path_to_save)
+except FileNotFoundError:
+    pass
+
 cnn.save(path_to_save)
 print(f'Model saved in {path_to_save}!')
