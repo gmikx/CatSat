@@ -14,4 +14,4 @@
 ---
 
 
-made by Mikołaj Giza
+made by Mikołaj Giza (CatSat)
