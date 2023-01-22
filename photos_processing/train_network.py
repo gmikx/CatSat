@@ -3,10 +3,12 @@
 # Following script trains CNN model for satellite images classification and saves it for later use without retraining.
 # In order to do this, we used Tensorfow (keras).
 
+
 ###########################################
 ###  Script by @gmikx (Mikołaj Giza)    ###
 ###  CatSat Team in CanSat Competition  ###
 ###########################################
+
 
 
 # Import Needed Libraries
