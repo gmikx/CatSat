@@ -83,11 +83,21 @@ def get_dataset():
         unzip_dataset()
         remove_zip()
 
+def create_folder_for_gathered_photos():
+    try:
+        os.mkdir('photos_to_process')
+    except:
+        print("Creating folder for photos failed :(")
+        return 0
+    else:
+        print("Folder for photos to analyze created!")
+        return 1
 
 def main():
     set_cwd_to_good_one()
     install_missing_packages()
     get_dataset()
+    create_folder_for_gathered_photos()
 
 
 if __name__ == "__main__":
