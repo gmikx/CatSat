@@ -8,8 +8,9 @@
 ###  CatSat Team in CanSat Competition  ###
 ###########################################
 
+# The script is licensed under GPLv3 license
 
-
+## Imports ##
 import pkg_resources
 import subprocess
 import sys

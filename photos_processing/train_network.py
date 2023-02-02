@@ -9,7 +9,7 @@
 ###  CatSat Team in CanSat Competition  ###
 ###########################################
 
-
+# The script is licensed under GPLv3 license
 
 # Import Needed Libraries
 import os

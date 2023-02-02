@@ -1,5 +1,17 @@
-## Imports ##
+#!/usr/bin/python3
 
+# Following script is made to analyze photos collected by our CanSat.
+# By analyze I mean predict the type of terrain on photo, and generate map based on this photo.
+
+
+###########################################
+###  Script by @gmikx (Mikołaj Giza)    ###
+###  CatSat Team in CanSat Competition  ###
+###########################################
+
+# The script is licensed under GPLv3 license
+
+## Imports ##
 from keras.models import load_model
 from keras.preprocessing.image import ImageDataGenerator
 import cv2
@@ -20,8 +32,8 @@ river = np.array([0, 255,240])
 sea_lake = np.array([0,61,225])
 legend = {0:crop, 1:desert, 2:forest, 3:forest, 4:highway, 5:industrial, 6:pasture, 7:crop, 8:residential, 9:river, 10:sea_lake}
 
-## Setup ##
 
+## Setup ##
 
 def set_path():
     global PATH
@@ -61,8 +73,8 @@ def setup():
     dir_for_slices()
     list_photos()
 
-## Analyzing Photos ##
 
+## Analyzing Photos ##
 
 def load_photo(filename: str):
     img = cv2.imread(filename, cv2.IMREAD_COLOR)
