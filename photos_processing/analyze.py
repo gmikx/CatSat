@@ -9,15 +9,16 @@ import os
 
 
 # Define Colors For the Map
-crop = []
-desert = []
-forest = []
-highway = []
-industrial = []
-pasture = []
-residential = []
-river = []
-sea_lake = []
+crop = np.array([26, 127, 3])
+desert = np.array([234,216,30])
+forest = np.array([10,94,13])
+highway = np.array([100,100,100])
+industrial = np.array([225,24,73])
+pasture = np.array([51,102,37])
+residential = np.array([255,0,162])
+river = np.array([0, 255,240])
+sea_lake = np.array([0,61,225])
+legend = {0:crop, 1:desert, 2:forest, 3:forest, 4:highway, 5:industrial, 6:pasture, 7:crop, 8:residential, 9:river, 10:sea_lake}
 
 ## Setup ##
 
@@ -70,37 +71,40 @@ def load_photo(filename: str):
 
 def classify_slice(image):
     img = 1./255 * image
+    img = img.reshape(1, 64, 64, 3)
     pred = cnn.predict(img)
+    prediction = np.where(pred==1.)[1][0]
+    color = legend[prediction]
+    return color
 
 
-def generate_slices(image, filename: str):
+def generate_slices_and_map(image, filename):
     img_y, img_x, _ = image.shape
     win_x, win_y = 64, 64
     no_windows_x = img_x - win_x + 1
     no_windows_y = img_y - win_y + 1
-    no_digits_x = len(str(no_windows_x))
-    no_digits_y = len(str(no_windows_y))
-
+    terrain_map = np.zeros((no_windows_y, no_windows_x, 3))
     filename_strip = filename[:filename.rfind('.')]
-
     for y in range(no_windows_y):
         for x in range(no_windows_x):
             sl = image[y:y+win_y, x:x+win_x]
-            name = f'./tmp/{filename_strip}-{x:0{no_digits_x}d}-{y:0{no_digits_y}d}.png'
-            cv2.imwrite(filename=name, img=sl)
+            color = classify_slice(sl)
+            terrain_map[y,x] = color
+
+    cv2.imwrite(f"{filename_strip}-map.jpg", terrain_map)
+
 
 
 def analyze_photo(filename: str):
+    global terrain_map
     img = load_photo(filename)
-    generate_slices(img, filename)
-    # classify_slices()
-    # generate_map()
-    # remove_slices()
+    generate_slices_and_map(img, filename)
 
 
 def main():
     setup()
-    analyze_photo("photo2.png")
+    for photo in photos:
+        analyze_photo(photo)
 
 
 if __name__ == "__main__":
