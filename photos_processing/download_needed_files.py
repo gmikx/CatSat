@@ -39,7 +39,7 @@ def install_missing_packages():
 
 
 def download_dataset():
-    link = "https://dl.dropboxusercontent.com/s/z14mgz5qdh33pgn/dataset.zip?dl=0"
+    link = "https://www.dropbox.com/s/z14mgz5qdh33pgn/dataset.zip?dl=1"
     try:
         subprocess.run(["curl", "-LJOs", link])
     except:
