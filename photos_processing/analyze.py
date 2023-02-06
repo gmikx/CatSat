@@ -52,11 +52,12 @@ def load_cnn_model():
 def create_dir_for_maps():
     try:
         os.mkdir('./maps')
-        os.chdir('./photos_to_process/')
     except:
+        os.chdir('./photos_to_process/')
         print("Creating dir for maps failed :(")
         return 0
     else:
+        os.chdir('./photos_to_process/')
         print("Dir for maps created successfully!")
         return 1
 
@@ -79,7 +80,7 @@ def setup():
 def load_photo(filename: str):
     img = cv2.imread(filename, cv2.IMREAD_COLOR)
     return img
-    
+
 
 def classify_slice(image):
     img = 1./255 * image
@@ -91,14 +92,16 @@ def classify_slice(image):
 
 
 def generate_slices_and_map(image, filename):
-    img_y, img_x, _ = image.shape
+    global terrain_map
+    img_y, img_x = image.shape[0], image.shape[1]
     win_x, win_y = 64, 64
     no_windows_x = img_x - win_x + 1
     no_windows_y = img_y - win_y + 1
     terrain_map = np.zeros((no_windows_y, no_windows_x, 3))
     filename_strip = filename[:filename.rfind('.')]
-    for y in range(no_windows_y):
-        for x in range(no_windows_x):
+
+    for y in range(0, no_windows_y):
+        for x in range(0, no_windows_x):
             sl = image[y:y+win_y, x:x+win_x]
             color = classify_slice(sl)
             # print(x, y, color)
@@ -109,16 +112,24 @@ def generate_slices_and_map(image, filename):
 
 
 def analyze_photo(filename: str):
-    global terrain_map
+    
     img = load_photo(filename)
     generate_slices_and_map(img, filename)
 
 
 def main():
     setup()
-    for photo in photos:
-        analyze_photo(photo)
-    # analyze_photo("photo2.png")
+    # for photo in photos:
+    #     try:
+    #         analyze_photo(photo)
+    #         del(terrain_map)
+    #     except KeyboardInterrupt:
+    #         cv2.imwrite(f"../maps/draft-map.jpg", terrain_map)
+
+    try:
+        analyze_photo("test.png")
+    except KeyboardInterrupt:
+        cv2.imwrite(f"../maps/draft-map.jpg", terrain_map)
 
 if __name__ == "__main__":
     main()
