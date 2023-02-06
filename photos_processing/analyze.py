@@ -49,28 +49,28 @@ def load_cnn_model():
     cnn = load_model('./best_model')
 
 
-def dir_for_slices():
+def create_dir_for_maps():
     try:
+        os.mkdir('./maps')
         os.chdir('./photos_to_process/')
-        os.mkdir('tmp')
     except:
-        print("Creating dir for slices failed :(")
+        print("Creating dir for maps failed :(")
         return 0
     else:
-        print("Dir for slices created successfully!")
+        print("Dir for maps created successfully!")
         return 1
 
 
 def list_photos():
     global photos
     photos = os.listdir(".")
-    photos.remove('tmp')
+    # photos.remove('tmp')
 
 
 def setup():
     set_path()
     load_cnn_model()
-    dir_for_slices()
+    create_dir_for_maps()
     list_photos()
 
 
@@ -79,13 +79,13 @@ def setup():
 def load_photo(filename: str):
     img = cv2.imread(filename, cv2.IMREAD_COLOR)
     return img
-
+    
 
 def classify_slice(image):
     img = 1./255 * image
     img = img.reshape(1, 64, 64, 3)
     pred = cnn.predict(img)
-    prediction = np.where(pred==1.)[1][0]
+    prediction = np.argmax(pred)
     color = legend[prediction]
     return color
 
@@ -101,9 +101,10 @@ def generate_slices_and_map(image, filename):
         for x in range(no_windows_x):
             sl = image[y:y+win_y, x:x+win_x]
             color = classify_slice(sl)
+            # print(x, y, color)
             terrain_map[y,x] = color
 
-    cv2.imwrite(f"{filename_strip}-map.jpg", terrain_map)
+    cv2.imwrite(f"../maps/{filename_strip}-map.jpg", terrain_map)
 
 
 
@@ -117,7 +118,7 @@ def main():
     setup()
     for photo in photos:
         analyze_photo(photo)
-
+    # analyze_photo("photo2.png")
 
 if __name__ == "__main__":
     main()
