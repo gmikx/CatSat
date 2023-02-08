@@ -1,0 +1,12 @@
+https://mikrokontroler.pl/2020/01/09/bme280-czujnik-temperatury-wilgotnosci-oraz-cisnienia-czesc-1/2/
+https://pypi.org/project/bme280pi/  ALBO  https://pypi.org/project/RPi.bme280/ ((pip install smbus2 RPi.bme280))
+https://cdn-shop.adafruit.com/product-files/2652/2652.pdf
+
+
+
+VCC - 3.3V
+GND - GND
+SCL - pin 5
+SDA - pin 3
+CSB - 3.3V
+SD0 - 3.3V
