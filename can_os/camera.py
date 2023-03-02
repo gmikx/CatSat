@@ -10,8 +10,8 @@ class Camera:
         self.camera.start()
         time.sleep(2)
 
-    def zrob_zdjecie(self, nazwa_pliku:str=datetime.now().strftime("%Y_%m_%d__%H_%M_%S") + ".jpg"):
-        self.camera.capture_file(nazwa_pliku)
+    def zrob_zdjecie(self):
+        self.camera.capture_file(datetime.now().strftime("%Y_%m_%d__%H_%M_%S") + ".jpg")
 
     # def rob_zdjecia(self, opoznienie:float):
     #     teraz:str = datetime.now().strftime("%Y_%m_%d__%H_%M_%S") + ".jpg"
