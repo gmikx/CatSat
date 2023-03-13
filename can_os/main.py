@@ -1,3 +1,6 @@
 #!/usr/bin/python3
 
-import bme280pi
+from bme import BME
+from gps import *
+
+gps = GPS()
