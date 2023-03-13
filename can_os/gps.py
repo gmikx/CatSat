@@ -13,26 +13,25 @@ import board
 import serial
 import adafruit_gps
 
-RX = board.RX
-TX = board.TX
+class GPS():
+    def __init__(self):
+        self.RX = board.RX
+        self.TX = board.TX
+        self.uart = serial.Serial("/dev/serial1", baudrate=9600, timeout=30)
+        self.gps = adafruit_gps.GPS(self.uart, debug=False)
 
-uart = serial.Serial("/dev/serial1", baudrate=9600, timeout=30)
-
-gps = adafruit_gps.GPS(uart, debug=False)
-
-gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-
-gps.send_command(b'PMTK220,1000')
-
-last_print = time.monotonic()
-while True:
-    gps.update()
-    current = time.monotonic()
-    if current - last_print >= 1.0:
-        last_print = current
-        if not gps.has_fix:
-            print('Waiting for fix...')
-            continue
-        print('=' * 40)  # Print a separator line.
-        print('Latitude: {0:.6f} degrees'.format(gps.latitude))
-        print('Longitude: {0:.6f} degrees'.format(gps.longitude))
+        self.gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
+        self.gps.send_command(b'PMTK220,1000')
+        
+    def lokalizacja(self):
+        last_print = time.monotonic()
+        self.gps.update()
+        current = time.monotonic()
+        if current - last_print >= 1.0:
+            last_print = current
+            if not self.gps.has_fix:
+                print('Waiting for fix...')
+            else:
+                print('=' * 40)  # Print a separator line.
+                print('Latitude: {0:.6f} degrees'.format(self.gps.latitude))
+                print('Longitude: {0:.6f} degrees'.format(self.gps.longitude))
