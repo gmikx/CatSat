@@ -17,18 +17,18 @@ class GPS():
     def __init__(self):
         self.RX = board.RX
         self.TX = board.TX
-        self.uart = serial.Serial("/dev/serial1", baudrate=9600, timeout=30)
+        self.uart = serial.Serial("/dev/serial0", baudrate=9600, timeout=30)
         self.gps = adafruit_gps.GPS(self.uart, debug=False)
 
         self.gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
         self.gps.send_command(b'PMTK220,1000')
+        self.last_print = time.monotonic()
         
     def lokalizacja(self):
-        last_print = time.monotonic()
         self.gps.update()
-        current = time.monotonic()
-        if current - last_print >= 1.0:
-            last_print = current
+        self.current = time.monotonic()
+        if self.current - self.last_print >= 1.0:
+            self.last_print = self.current
             if not self.gps.has_fix:
                 print('Waiting for fix...')
             else:
