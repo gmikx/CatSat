@@ -1,8 +1,11 @@
 import wiringpi
 
 u'''RPIO for wait for interrupt function.'''
-import RPi.GPIO as RPIO
-
+import RPIO
+# https://github.com/metachris/RPIO/commit/fadf602816accaeba3f54a85b9f35a8181ec076c
+# https://github.com/Yackou/RPIO/tree/v2
+# https://forums.raspberrypi.com/viewtopic.php?t=165379
+# https://github.com/metachris/RPIO/issues/86
 # Python imports
 import threading
 import queue as Queue
@@ -12,21 +15,16 @@ import time
 RPIO.setmode(RPIO.BCM)
 
 u'''Pin definitions, '''
-# RFM22_SDN_GPIO_PIN = 5  # 24 BCM GPIO
-RFM22_SDN_GPIO_PIN = 24
+RFM22_SDN_GPIO_PIN = 5  # 24 BCM GPIO
 
 u'''Nirq pin number defintion. wiringpi uses the 
-RFM22_NIRQ_GPIO_PIN, RPIO uses RFM""_NIRQ_GPIO_BCM_PIN.'''
-# RFM22_NIRQ_GPIO_PIN = 6  # 25 BCM GPIO
-RFM22_NIRQ_GPIO_PIN = 25
+RFM22_NIRQ_GPIO_PIN, RPIO uses RFM_NIRQ_GPIO_BCM_PIN.'''
+RFM22_NIRQ_GPIO_PIN = 6  # 25 BCM GPIO
 RFM22_NIRQ_GPIO_BCM_PIN = 25
 
-# RFM22_TXEN_GPIO_PIN = 1  # 18 BCM GPIO
-# RFM22_RXEN_GPIO_PIN = 4  # 23 BCM GPIO
-# RFM22_SPI_CHANNEL = 0  # 17 BCM GPIO
-RFM22_TXEN_GPIO_PIN = 18
-RFM22_RXEN_GPIO_PIN = 23
-RFM22_SPI_CHANNEL = 17
+RFM22_TXEN_GPIO_PIN = 1  # 18 BCM GPIO
+RFM22_RXEN_GPIO_PIN = 4  # 23 BCM GPIO
+RFM22_SPI_CHANNEL = 0  # 17 BCM GPIO
 
 u'''Definitions for wiringpi module.'''
 GPIO_INT_EDGE_SETUP = 0
