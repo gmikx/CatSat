@@ -43,5 +43,5 @@ class GPS():
             pos="NOFIX"
         else:
             pos+='gp{0:.6f}'.format(self.gps.latitude)
-            pos+=' {0:.6f}'.format(self.gps.longitude)
+            pos+=' {0:.6f};'.format(self.gps.longitude)
         return pos
