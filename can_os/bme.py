@@ -1,7 +1,5 @@
 from bme280pi import Sensor  # https://pypi.org/project/bme280pi/
 
-import time
-
 ## HOOKUP SCHEMA:
 ##   VCC - 3.3V (eg. pin 1)
 ##   GND - GND (eg. pin 6)
@@ -15,6 +13,9 @@ class BME():
     def zbierz_dane(self):
         dane = self.sensor.get_data()
         return dane
+    
+    def cisnienie(self):
+        return self.sensor.get_pressure()
 
     # def zbieraj_dane(self, opoznienie):
     #     self.zbierz_dane_bme()

@@ -24,14 +24,24 @@ class GPS():
         self.gps.send_command(b'PMTK220,1000')
         self.last_print = time.monotonic()
         
+    # def lokalizacja(self):
+    #     self.gps.update()
+    #     self.current = time.monotonic()
+    #     if self.current - self.last_print >= 1.0:
+    #         self.last_print = self.current
+    #         if not self.gps.has_fix:
+    #             print('Waiting for fix...')
+    #         else:
+    #             print('=' * 40)  # Print a separator line.
+    #             print('Latitude: {0:.6f} degrees'.format(self.gps.latitude))
+    #             print('Longitude: {0:.6f} degrees'.format(self.gps.longitude))
+    
     def lokalizacja(self):
+        pos=""
         self.gps.update()
-        self.current = time.monotonic()
-        if self.current - self.last_print >= 1.0:
-            self.last_print = self.current
-            if not self.gps.has_fix:
-                print('Waiting for fix...')
-            else:
-                print('=' * 40)  # Print a separator line.
-                print('Latitude: {0:.6f} degrees'.format(self.gps.latitude))
-                print('Longitude: {0:.6f} degrees'.format(self.gps.longitude))
+        if not self.gps.has_fix:
+            pos="NOFIX"
+        else:
+            pos+='gp{0:.6f}'.format(self.gps.latitude)
+            pos+=' {0:.6f}'.format(self.gps.longitude)
+        return pos
