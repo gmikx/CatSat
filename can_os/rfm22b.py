@@ -667,25 +667,25 @@ class Rfm22(threading.Thread):
                 debug_log("Unknown State!")
 
 
-if __name__ == '__main__':
-    radio = Rfm22()
-    radio.initialise()
-    radio.start()
-    u'''Wait some time to let the radio module time
-    to initialise.'''
-    time.sleep(1)
+# if __name__ == '__main__':
+#    radio = Rfm22()
+#     radio.initialise()
+#     radio.start()
+#     u'''Wait some time to let the radio module time
+#     to initialise.'''
+#     time.sleep(1)
 
-    u'''Send some data via RFM22. '''
-    data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    for i in range(10):
-        time.sleep(0.2)
-        radio.put_tx_data(data, block=False)
-        print("put to queue")
+#     u'''Send some data via RFM22. '''
+#     data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+#     for i in range(10):
+#         time.sleep(0.2)
+#         radio.put_tx_data(data, block=False)
+#         print("put to queue")
 
-    u'''Receive data from RFM22'''
-    # while(True):
-    #data = radio.get_rx_data(block = True)
-    #print("RX Data", data, "\n")
+#     u'''Receive data from RFM22'''
+#     # while(True):
+#     #data = radio.get_rx_data(block = True)
+#     #print("RX Data", data, "\n")
 
-    u'''Join RFM22 thread.'''
-    radio.join()
+#     u'''Join RFM22 thread.'''
+#     radio.join()
